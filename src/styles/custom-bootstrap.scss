@@ -1,0 +1,13 @@
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+
+.hoverable {
+    transition: 0.3s all;
+    cursor: pointer;
+    &:hover {
+        background: #eeeeee;
+    }
+}
+
+.clickable {
+    cursor: pointer;
+}
