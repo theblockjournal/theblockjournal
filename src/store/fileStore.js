@@ -16,5 +16,7 @@ export default {
       state.currentFile = state.files[fileIndex];
     }
   },
-  actions: {},
+  actions: {
+    
+  },
 };
