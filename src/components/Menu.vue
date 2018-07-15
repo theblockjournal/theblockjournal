@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     file() {
-      return this.$store.state.fileState.currentFile;
+      return this.$store.state.fileStore.currentFile;
     },
   },
   methods: {

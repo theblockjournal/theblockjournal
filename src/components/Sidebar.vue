@@ -26,10 +26,10 @@ export default {
   },
   computed: {
     files() {
-      return this.$store.state.fileState.files;
+      return this.$store.state.fileStore.files;
     },
     currentFile() {
-      return this.$store.state.fileState.currentFile;
+      return this.$store.state.fileStore.currentFile;
     }
   },
   methods: {

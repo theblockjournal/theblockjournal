@@ -1,12 +1,13 @@
 <template>
   <div id="document">
-    <div id="editor" v-if="file">
-      
-    </div>
+    <div id="editor" v-if="file"></div>
+    <div id="tools"></div>
   </div>
 </template>
 
 <script>
+const createKeccakHash = require('keccak');
+
 export default {
   name: 'Document',
   data() {
@@ -16,15 +17,18 @@ export default {
   },
   computed: {
     file() {
-      return this.$store.state.fileState.currentFile;
+      return this.$store.state.fileStore.currentFile;
     },
   },
   methods: {
     getContent() {
       return this.editor.getValue();
     },
+    getContentHash() {
+      return createKeccakHash('keccak256').update(this.getContent()).digest('hex');
+    },
     save() {
-      this.$store.state.fileState.currentFile.content = this.getContent();
+      this.$store.state.fileStore.currentFile.content = this.getContent();
     },
   },
   watch: {
@@ -54,6 +58,17 @@ export default {
   top: 4em;
   #editor { 
     height: 100%;
+  }
+  #tools {
+    position: absolute;
+    width: 5%;
+    height: 100%;
+    background: black;
+    top: 0;
+    z-index: 100;
+    right: 0;
+    opacity: 0.8;
+    display: none;
   }
 }
 </style>

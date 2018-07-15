@@ -16,6 +16,7 @@ import Sidebar from '@/components/Sidebar';
 import Document from '@/components/Document';
 
 import Eth from '@/services/getWeb3';
+import blockJournal from '@/services/blockJournal';
 window.Eth = Eth;
 
 export default {
