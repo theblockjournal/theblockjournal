@@ -8,6 +8,8 @@ Vue.config.productionTip = false;
 
 Vue.use(AsyncComputed);
 
+store.dispatch('initialize');
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
