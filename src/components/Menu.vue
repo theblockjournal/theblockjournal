@@ -8,6 +8,9 @@
     <div>
       <span>{{networkName}}</span>
       <span>v0</span>
+      <select class="addressSelector">
+        <option v-for="account in accounts">{{account}}</option>
+      </select>
     </div>
   </nav>
 </template>
@@ -23,20 +26,22 @@ export default {
   asyncComputed: {
     networkName: {
       async get() {
-        let networkNumber = await Eth.net_version();
-        switch (networkNumber) {
-          case "1":
-            return 'Main Network';
-          case "4":
-            return 'Rinkeby Network';
-          default:
-            return 'Other Network';
-        }
+        return this.$store.getters.networkName;
       },
       default() {
         return 'Loading network...';
       }
-    }
+    },
+    accounts: {
+      async get() {
+        return this.$store.state.app.accounts.map(acc=> {
+          return `${acc.slice(0, 5)}...${acc.slice(-3)}`;
+        });
+      },
+      default() {
+        return ['Loading accounts...'];
+      }
+    },
   },
   computed: {
     file() {
@@ -57,6 +62,11 @@ export default {
   height: 4em;
   align-items: center;
   .item {
+    color: white;
+  }
+  .addressSelector {
+    background: none;
+    border: none;
     color: white;
   }
 }
