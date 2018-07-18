@@ -6,7 +6,10 @@ export default {
   },
   getters: {},
   mutations: {
-    
+    addSign(state, sign) {
+      sign.id = uuid.v4();
+      state.signs.push(sign);
+    },
   },
   actions: {
     

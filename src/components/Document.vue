@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import blockJournal from '@/services/blockJournal';
 const createKeccakHash = require('keccak');
 
 export default {
@@ -30,6 +31,10 @@ export default {
     save() {
       this.$store.state.fileStore.currentFile.content = this.getContent();
     },
+    async sign() {
+      this.save();
+      await blockJournal.signFile(this.$store.state.fileStore.currentFile);
+    },
   },
   watch: {
     file(newFile, oldFile) {
@@ -40,6 +45,7 @@ export default {
         e.setTheme("ace/theme/clouds_midnight");
         e.session.setMode("ace/mode/text");
         e.setValue(newFile.content || '', 1);
+        e.setShowInvisibles(true);
         e.getSession().setUndoManager(new window.ace.UndoManager());
         window.editor = e;
         _this.editor = e;

@@ -1,8 +1,11 @@
 <template>
   <nav id="menu" class="d-flex navbar text-white">
-    <div>
+    <div class="d-flex">
       <div class="item p-2 clickable" v-on:click="save()" v-if="file">
         <i class="material-icons">save</i>
+      </div>
+      <div class="item p-2 clickable" v-on:click="sign()" v-if="file">
+        <i class="material-icons">fingerprint</i>
       </div>
     </div>
     <div>
@@ -51,6 +54,9 @@ export default {
   methods: {
     save() {
       this.$parent.$refs.document.save();
+    },
+    sign() {
+      this.$parent.$refs.document.sign();
     },
   },
 };
