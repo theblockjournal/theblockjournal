@@ -5,7 +5,11 @@ export default {
     files: [],
     currentFile: null,
   },
-  getters: {},
+  getters: {
+    getFileByID: (state) => (id) => {
+      return state.files.find(file => file.id === id);
+    },
+  },
   mutations: {
     addFile(state, file) {
       file.id = uuid.v4();
