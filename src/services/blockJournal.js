@@ -23,17 +23,17 @@ class BlockJournal {
       fileID: file.id,
       networkID: store.state.app.networkID,
       contract: 'v0',
-      sender: store.state.app.accounts[0],
+      sender: store.state.app.selectedAccount,
     };
     store.commit('addSign', sign);
   }
   async addEntry(signature) {
     let contractInstance = await this.getContractInstance('v0');
-    let txHash = await contractInstance.addEntry(signature, {from: store.state.app.accounts[0]});
+    let txHash = await contractInstance.addEntry(signature, {from: store.state.app.selectedAccount});
     return txHash;
   }
   async getEntry(address, signature) {
-    if(!address) address = store.state.app.accounts[0];
+    if(!address) address = store.state.app.selectedAccount;
     let contractInstance = await this.getContractInstance('v0');
     return await contractInstance.getEntry(address, signature);
   }
