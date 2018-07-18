@@ -8,12 +8,21 @@
         <i class="material-icons">fingerprint</i>
       </div>
     </div>
-    <div>
-      <span>{{networkName}}</span>
-      <span>v0</span>
-      <select class="addressSelector">
-        <option v-for="account in accounts">{{account}}</option>
-      </select>
+    <div class="d-flex">
+      <div class="d-flex px-2">
+        <i class="material-icons px-2">public</i>
+        <span>{{networkName}}</span>
+      </div>
+      <div class="d-flex px-2">
+        <i class="material-icons px-2">receipt</i>
+        <span>v0</span>
+      </div>
+      <div class="d-flex px-2">
+        <i class="material-icons px-2">account_circle</i>
+        <select class="addressSelector" v-model="selectedAccount">
+          <option v-for="account in $store.state.app.accounts" :value="account">{{shortenedAccount(account)}}</option>
+        </select>
+      </div>
     </div>
   </nav>
 </template>
@@ -35,20 +44,18 @@ export default {
         return 'Loading network...';
       }
     },
-    accounts: {
-      async get() {
-        return this.$store.state.app.accounts.map(acc=> {
-          return `${acc.slice(0, 5)}...${acc.slice(-3)}`;
-        });
-      },
-      default() {
-        return ['Loading accounts...'];
-      }
-    },
   },
   computed: {
     file() {
       return this.$store.state.fileStore.currentFile;
+    },
+    selectedAccount: {
+      get() {
+        return this.$store.state.app.selectedAccount;
+      },
+      set(value) {
+        this.$store.commit('selectAccount', this.$store.state.app.accounts.indexOf(value));
+      }
     },
   },
   methods: {
@@ -58,6 +65,9 @@ export default {
     sign() {
       this.$parent.$refs.document.sign();
     },
+    shortenedAccount(acc) {
+      return `${acc.slice(0, 5)}...${acc.slice(-3)}`;
+    }
   },
 };
 </script>

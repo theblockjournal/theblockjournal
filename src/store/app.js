@@ -4,6 +4,7 @@ export default {
   state: {
     networkID: null,
     accounts: [],
+    selectedAccount: null,
   },
   getters: {
     networkName(state) {
@@ -23,6 +24,9 @@ export default {
     },
     setAccounts(state, accounts) {
       state.accounts = accounts;
+    },
+    selectAccount(state, index) {
+      state.selectedAccount = state.accounts[index];
     }
   },
   actions: {
@@ -37,6 +41,7 @@ export default {
     async initialize({commit, dispatch}) {
       await dispatch('setNetworkID');
       await dispatch('setAccounts');
+      commit('selectAccount', 0);
     }
   },
 };
