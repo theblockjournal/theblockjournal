@@ -20,7 +20,10 @@ class BlockJournal {
       signature,
       txHash,
       time: Date.now(),
-      fileID: file.id
+      fileID: file.id,
+      networkID: store.state.app.networkID,
+      contract: 'v0',
+      sender: store.state.app.accounts[0],
     };
     store.commit('addSign', sign);
   }
