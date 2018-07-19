@@ -31,24 +31,29 @@ export default {
     save() {
       this.$store.state.fileStore.currentFile.content = this.getContent();
     },
+    loadFile(file) {
+      let e = window.ace.edit("editor");
+      e.setTheme("ace/theme/clouds_midnight");
+      e.session.setMode("ace/mode/text");
+      e.setValue(file.content || '', 1);
+      e.setShowInvisibles(true);
+      e.getSession().setUndoManager(new window.ace.UndoManager());
+      window.editor = e;
+      this.editor = e;
+    },
     async sign() {
       this.save();
       await blockJournal.signFile(this.$store.state.fileStore.currentFile);
     },
   },
+  mounted() {
+    this.loadFile(this.file);
+  },
   watch: {
     file(newFile, oldFile) {
       if(oldFile && window.editor.getValue) oldFile.content = window.editor.getValue();
-      let _this = this;
       this.$nextTick(()=> {
-        let e = window.ace.edit("editor");
-        e.setTheme("ace/theme/clouds_midnight");
-        e.session.setMode("ace/mode/text");
-        e.setValue(newFile.content || '', 1);
-        e.setShowInvisibles(true);
-        e.getSession().setUndoManager(new window.ace.UndoManager());
-        window.editor = e;
-        _this.editor = e;
+        this.loadFile(newFile);
       });
     },
   },
