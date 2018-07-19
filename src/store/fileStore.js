@@ -3,6 +3,7 @@ import uuid from 'uuid';
 export default {
   state: {
     files: [],
+    deletedFiles: [],
     currentFile: null,
   },
   getters: {
@@ -21,7 +22,8 @@ export default {
     },
     deleteFileByID(state, fileID) {
       let toBeDeletedFileIndex = state.files.findIndex(f => f.id === fileID);
-      state.files.splice(toBeDeletedFileIndex, 1);
+      let deletedFile = state.files.splice(toBeDeletedFileIndex, 1);
+      state.deletedFiles.push(...deletedFile);
     }
   },
   actions: {
