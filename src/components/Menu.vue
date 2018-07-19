@@ -20,7 +20,7 @@
       <div class="d-flex px-2" v-tooltip:bottom="selectedAccountToolTip">
         <i class="material-icons px-2">account_circle</i>
         <select class="addressSelector" v-model="selectedAccount">
-          <option v-for="account in $store.state.app.accounts" :value="account">{{shortenedAccount(account)}}</option>
+          <option v-for="account in $store.state.app.accounts" :value="account" class="text-dark">{{shortenedAccount(account)}}</option>
         </select>
       </div>
     </div>
