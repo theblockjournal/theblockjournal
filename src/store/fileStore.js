@@ -16,8 +16,12 @@ export default {
       file.content = uuid.v4();
       state.files.push(file);
     },
-    selectFileIndex(state, fileIndex) {
-      state.currentFile = state.files[fileIndex];
+    selectFileByID(state, fileID) {
+      state.currentFile = state.files.find(f => f.id === fileID);
+    },
+    deleteFileByID(state, fileID) {
+      let toBeDeletedFileIndex = state.files.findIndex(f => f.id === fileID);
+      state.files.splice(toBeDeletedFileIndex, 1);
     }
   },
   actions: {
