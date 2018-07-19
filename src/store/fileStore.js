@@ -4,7 +4,6 @@ export default {
   state: {
     files: [],
     deletedFiles: [],
-    currentFile: null,
     currentFileID: null,
   },
   getters: {

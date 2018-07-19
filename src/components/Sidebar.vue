@@ -28,14 +28,17 @@
       </div>
     </div>
     <div class="signs" v-if="displayMode=='signs'">
-      <div class="sign hoverable p-2 d-flex" v-for="(sign, i) in signs">
+      <div class="sign hoverable p-2" v-for="(sign, i) in signs">
         <div class="w-100">{{fileFromSign(sign).name}}</div>
+        <small>{{displayTime(sign.time)}}</small>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   name: 'Sidebar',
   data() {
@@ -54,6 +57,9 @@ export default {
     },
     currentFile() {
       return this.$store.getters.currentFile;
+    },
+    displayTime: ()=> (time)=> {
+      return moment(time).from();
     },
   },
   methods: {
