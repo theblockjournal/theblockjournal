@@ -1,23 +1,23 @@
 <template>
   <nav id="menu" class="d-flex navbar text-white">
     <div class="d-flex">
-      <div class="item p-2 clickable" v-on:click="save()" v-if="file">
+      <div class="item p-2 clickable" v-on:click="save()" v-if="file" v-tooltip:bottom="'Save file'">
         <i class="material-icons">save</i>
       </div>
-      <div class="item p-2 clickable" v-on:click="sign()" v-if="file">
+      <div class="item p-2 clickable" v-on:click="sign()" v-if="file" v-tooltip:bottom="'Publish signature'">
         <i class="material-icons">fingerprint</i>
       </div>
     </div>
     <div class="d-flex">
       <div class="d-flex px-2">
-        <i class="material-icons px-2">public</i>
+        <i class="material-icons px-2" v-tooltip:bottom="networkNameToolTip">public</i>
         <span>{{networkName}}</span>
       </div>
       <div class="d-flex px-2">
-        <i class="material-icons px-2">receipt</i>
+        <i class="material-icons px-2" v-tooltip:bottom="'You\'re using the v0 contract'">receipt</i>
         <span>v0</span>
       </div>
-      <div class="d-flex px-2">
+      <div class="d-flex px-2" v-tooltip:bottom="selectedAccountToolTip">
         <i class="material-icons px-2">account_circle</i>
         <select class="addressSelector" v-model="selectedAccount">
           <option v-for="account in $store.state.app.accounts" :value="account">{{shortenedAccount(account)}}</option>
@@ -44,6 +44,9 @@ export default {
         return 'Loading network...';
       }
     },
+    async networkNameToolTip() {
+      return `You're on the ${await this.networkName}`;
+    }
   },
   computed: {
     file() {
@@ -57,6 +60,9 @@ export default {
         this.$store.commit('selectAccount', this.$store.state.app.accounts.indexOf(value));
       }
     },
+    selectedAccountToolTip() {
+      return `Your Ethereum account: ${this.selectedAccount}`;
+    }
   },
   methods: {
     save() {
