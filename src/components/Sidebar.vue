@@ -11,10 +11,13 @@
       </div>
     </div>
     <div class="files" v-if="displayMode=='files'">
-      <div class="file hoverable p-2 d-flex" :class="{selected: isSelected(file)}" v-for="(file, i) in files" v-on:click="selectFile(i)">
+      <div class="file hoverable p-2 d-flex" :class="{selected: isSelected(file)}" v-for="(file, i) in files" v-on:click="selectFile(file.id)">
         <div class="w-100">{{file.name}}</div>
         <i class="material-icons px-2" v-if="file.published">check_circle_outline</i>
-        <i class="menu material-icons">more_vert</i>
+        <i class="vert material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">more_vert</i>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" v-on:click="deleteFile(file.id)">Delete</a>
+        </div>
       </div>
       <div class="p-2 d-flex" v-if="newMode">
         <input id="newFileName" type="text" class="w-100 border-0" style="outline:none" v-model="newFileName" v-on:keyup.enter="newFile()" placeholder="Enter filename here"></input>
@@ -72,8 +75,11 @@ export default {
     startNewMode() {
       this.newMode = true;
     },
-    selectFile(fileIndex) {
-      this.$store.commit('selectFileIndex', fileIndex);
+    selectFile(fileID) {
+      this.$store.commit('selectFileByID', fileID);
+    },
+    deleteFile(fileID) {
+      this.$store.commit('deleteFileByID', fileID);
     },
     fileFromSign(sign) {
       return this.$store.getters.getFileByID(sign.fileID);
@@ -104,10 +110,10 @@ export default {
         border-left: 4px solid;
         background-color: #dddddd;
       }
-      &:hover .menu {
+      &:hover .vert {
         opacity: 1;
       }
-      .menu {
+      .vert {
         color: #888888;
         opacity: 0;
         transition: 0.3s all;
