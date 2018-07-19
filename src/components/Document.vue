@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     file() {
-      return this.$store.state.fileStore.currentFile;
+      return this.$store.getters.currentFile;
     },
   },
   methods: {
@@ -29,7 +29,7 @@ export default {
       return createKeccakHash('keccak256').update(this.getContent()).digest('hex');
     },
     save() {
-      this.$store.state.fileStore.currentFile.content = this.getContent();
+      this.$store.dispatch('setCurrentFileContent', this.getContent());
     },
     loadFile(file) {
       let e = window.ace.edit("editor");
@@ -43,7 +43,7 @@ export default {
     },
     async sign() {
       this.save();
-      await blockJournal.signFile(this.$store.state.fileStore.currentFile);
+      await blockJournal.signFile(this.$store.getters.currentFile);
     },
   },
   mounted() {

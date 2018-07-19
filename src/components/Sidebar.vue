@@ -53,7 +53,7 @@ export default {
       return this.$store.state.signStore.signs;
     },
     currentFile() {
-      return this.$store.state.fileStore.currentFile;
+      return this.$store.getters.currentFile;
     },
   },
   methods: {

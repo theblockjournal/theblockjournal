@@ -50,7 +50,7 @@ export default {
   },
   computed: {
     file() {
-      return this.$store.state.fileStore.currentFile;
+      return this.$store.getters.currentFile;
     },
     selectedAccount: {
       get() {
