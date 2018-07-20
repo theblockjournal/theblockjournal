@@ -1,7 +1,7 @@
 <template>
   <div id="sign">
     <div id="signView" class="container p-4">
-      <h3>Filename <span class="text-muted">v0</span></h3>
+      <h3>{{sign.fileName}} <span class="text-muted">v0</span></h3>
       <div class="card border-0 my-2">
         <div class="card-body">
           <h5 class="card-title">Verification</h5>

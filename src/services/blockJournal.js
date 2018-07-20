@@ -38,6 +38,16 @@ class BlockJournal {
     let contractInstance = await this.getContractInstance('v0');
     return await contractInstance.getEntry(address, signature);
   }
+  async getVerifiedEntry(address, signature) {
+    let entry = await this.getEntry(address, signature);
+    if(entry.sig !== signature) return {verified: false};
+    return {
+      signature: entry.sig,
+      time: (entry.time.toString() * 1000),
+      block: entry._block.toNumber(),
+      verified: true
+    };
+  }
   async getContractInstance(name) {
     let instanceAddress = this.rawContracts[name].deployments[store.state.app.networkID];
     return this.contracts[name].at(instanceAddress);
