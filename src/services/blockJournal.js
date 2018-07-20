@@ -21,6 +21,7 @@ class BlockJournal {
       txHash,
       time: Date.now(),
       fileID: file.id,
+      fileName: file.name,
       networkID: store.state.app.networkID,
       contract: 'v0',
       sender: store.state.app.selectedAccount,
