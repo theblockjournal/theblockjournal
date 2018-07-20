@@ -1,6 +1,6 @@
 <template>
   <div id="document">
-    <div id="editor" v-if="file"></div>
+    <div id="editor"></div>
     <div id="tools"></div>
   </div>
 </template>
@@ -8,6 +8,8 @@
 <script>
 import blockJournal from '@/services/blockJournal';
 const createKeccakHash = require('keccak');
+
+let store;
 
 export default {
   name: 'Document',
@@ -43,15 +45,19 @@ export default {
     },
     async sign() {
       this.save();
-      await blockJournal.signFile(this.$store.getters.currentFile);
+      let file = this.$store.getters.currentFile;
+      await blockJournal.signFile(file);
+      this.$store.commit('setFileLock', {id: file.id, lockState: true});
     },
   },
   mounted() {
     this.loadFile(this.file);
+    store = this.$store;
   },
   watch: {
     file(newFile, oldFile) {
-      if(oldFile && window.editor.getValue) oldFile.content = window.editor.getValue();
+      if(oldFile && window.editor.getValue) store.commit('setFileContent', {id: oldFile.id, content: window.editor.getValue()});
+      if(!newFile) return;
       this.$nextTick(()=> {
         this.loadFile(newFile);
       });
