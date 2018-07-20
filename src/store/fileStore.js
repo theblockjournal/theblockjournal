@@ -18,10 +18,21 @@ export default {
     addFile(state, file) {
       file.id = uuid.v4();
       file.content = uuid.v4();
+      file.locked = false;
       state.files.push(file);
     },
     selectFileByID(state, fileID) {
       state.currentFileID = fileID;
+    },
+    duplicateFileByID(state, fileID) {
+      let file = state.files.find(f => f.id === fileID);
+      let duplicateFile = {
+        name: file.name,
+        id: uuid.v4(),
+        content: file.content,
+        locked: false,
+      };
+      state.files.push(duplicateFile);
     },
     deleteFileByID(state, fileID) {
       let toBeDeletedFileIndex = state.files.findIndex(f => f.id === fileID);
@@ -30,7 +41,16 @@ export default {
     },
     setFileContent(state, {id, content}) {
       let index = state.files.findIndex(f => f.id === id);
-      state.files[index].content = content;
+      let file = state.files[index];
+      if(file.locked) return;
+      file.content = content;
+    },
+    setFileLock(state, {id, lockState}) {
+      let index = state.files.findIndex(f => f.id === id);
+      state.files[index].locked = lockState;
+    },
+    selectSignByID(state) {
+      state.currentFileID = null;
     },
   },
   actions: {
