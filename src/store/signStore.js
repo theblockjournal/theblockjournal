@@ -1,4 +1,5 @@
 import uuid from 'uuid';
+import blockJournal from '@/services/blockJournal';
 
 export default {
   state: {
@@ -18,6 +19,15 @@ export default {
       sign.id = uuid.v4();
       state.signs.push(sign);
     },
+    addVerification(state, {id, verification}) {
+      let signIndex = state.signs.findIndex(s => s.id === id);
+      state.signs[signIndex].verification = verification;
+    },
+    clearVerifications(state) {
+      for (let sign of state.signs) {
+        sign.verification = undefined;
+      }
+    },
     selectSignByID(state, signID) {
       state.currentSignID = signID;
     },
@@ -26,6 +36,20 @@ export default {
     },
   },
   actions: {
-    
+    async verifySignature({getters, state, commit}, {signID}) {
+      let sign = getters.getSignByID(signID);
+      let verification = await blockJournal.getVerifiedEntry(sign.sender, sign.signature);
+      // if(!verification.verified) return;
+      commit('addVerification', {id: signID, verification});
+    },
+    async verifyAllSignatures({state, dispatch}) {
+      let verificationPromises = [];
+      state.signs.forEach(s=> verificationPromises.push(dispatch('verifySignature', {signID: s.id})));
+      return Promise.all(verificationPromises);
+    },
+    async initialize({commit, dispatch}) {
+      commit('clearVerifications');
+      await dispatch('verifyAllSignatures');
+    }
   },
 };
