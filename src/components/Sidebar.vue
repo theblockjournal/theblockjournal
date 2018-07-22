@@ -33,7 +33,10 @@
     </div>
     <div class="signs" v-if="displayMode=='signs'">
       <div class="sign hoverable p-2" :class="{selected: isSignSelected(sign)}" v-for="(sign, i) in signs" v-on:click="selectMenu(sign.id)">
-        <div class="w-100">{{sign.fileName}}</div>
+        <div class="d-flex">
+          <div class="w-100">{{sign.fileName}}</div>
+          <i class="material-icons" v-if="isVerified(sign)">check_circle_outline</i>
+        </div>
         <small>{{displayTime(sign.time)}}</small>
       </div>
     </div>
@@ -67,6 +70,9 @@ export default {
     },
     displayTime: ()=> (time)=> {
       return moment(time).from();
+    },
+    isVerified: ()=> (sign)=> {
+      return sign.verification ? sign.verification.verified : false;
     },
   },
   methods: {
