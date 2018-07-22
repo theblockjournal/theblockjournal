@@ -54,6 +54,17 @@ class BlockJournal {
     let instanceAddress = this.rawContracts[name].deployments[store.state.app.networkID];
     return this.contracts[name].at(instanceAddress);
   }
+  downloadFile(fileID) {
+    let file = store.getters.getFileByID(fileID);
+    let fileObject = JSON.stringify({file});
+    downloadJson(fileObject, `blockjournal-file-${file.name}.json`);
+  }
+  downloadFileWithSigns(fileID) {
+    let file = store.getters.getFileByID(fileID);
+    let signs = store.getters.getSignsByFileID(fileID);
+    let fileSignObject = JSON.stringify({file, signs});
+    downloadJson(fileSignObject, `blockjournal-file-sigs-${file.name}.json`);
+  }
   dumpState() {
     let stateObject = JSON.stringify(store.state);
     let filename = `blockjournal-state-${Date.now()}.json`;

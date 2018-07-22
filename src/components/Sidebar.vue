@@ -19,6 +19,8 @@
         <div class="dropdown-menu">
           <a class="dropdown-item" v-if="!file.locked" v-on:click="lockFile(file.id)">Lock</a>
           <a class="dropdown-item" v-if="file.locked" v-on:click="unlockFile(file.id)">Unlock</a>
+          <a class="dropdown-item" v-on:click="downloadFile(file.id)">Download file</a>
+          <a class="dropdown-item" v-on:click="downloadFileWithSigns(file.id)">Download file with signs</a>
           <a class="dropdown-item" v-on:click="duplicateFile(file.id)">Duplicate</a>
           <a class="dropdown-item" v-on:click="deleteFile(file.id)">Delete</a>
         </div>
@@ -44,6 +46,7 @@
 </template>
 
 <script>
+import blockJournal from '@/services/blockJournal';
 import moment from 'moment';
 
 export default {
@@ -113,6 +116,8 @@ export default {
     unlockFile(fileID) {
       this.$store.commit('setFileLock', {id: fileID, lockState: false});
     },
+    downloadFile: blockJournal.downloadFile,
+    downloadFileWithSigns: blockJournal.downloadFileWithSigns,
     deleteFile(fileID) {
       this.$store.commit('deleteFileByID', fileID);
     },

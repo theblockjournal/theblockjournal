@@ -10,6 +10,9 @@ export default {
     getSignByID: (state) => (id) => {
       return state.signs.find(sign => sign.id === id);
     },
+    getSignsByFileID: (state) => (fileID) => {
+      return state.signs.filter(sign => sign.fileID === fileID);
+    },
     currentSign(state) {
       return state.signs.find(sign => sign.id === state.currentSignID);
     },
