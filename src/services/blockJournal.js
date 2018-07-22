@@ -3,6 +3,8 @@ import createKeccakHash from 'keccak';
 import Eth from '@/services/getWeb3';
 import store from '@/store';
 import v0 from '@/contracts/v0';
+import downloadJson from '@/utils/downloadJson';
+import uploadJson from '@/utils/uploadJson';
 
 class BlockJournal {
   constructor() {
@@ -51,6 +53,15 @@ class BlockJournal {
   async getContractInstance(name) {
     let instanceAddress = this.rawContracts[name].deployments[store.state.app.networkID];
     return this.contracts[name].at(instanceAddress);
+  }
+  dumpState() {
+    let stateObject = JSON.stringify(store.state);
+    let filename = `blockjournal-state-${Date.now()}.json`;
+    downloadJson(stateObject, filename);
+  }
+  async restoreState() {
+    let stateObject = await uploadJson();
+    store.replaceState(stateObject);
   }
 }
 

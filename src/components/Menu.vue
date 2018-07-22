@@ -9,6 +9,12 @@
       </div>
     </div>
     <div class="d-flex">
+      <div class="d-flex px-2 clickable" v-on:click="dump" v-tooltip:bottom="'Download state. This includes files, signatures, and settings.'">
+        <i class="material-icons">vertical_align_bottom</i>
+      </div>
+      <div class="d-flex px-2 clickable" v-on:click="restore" v-tooltip:bottom="'Upload state.'">
+        <i class="material-icons">vertical_align_top</i>
+      </div>
       <div class="d-flex px-2">
         <i class="material-icons px-2" v-tooltip:bottom="networkNameToolTip">public</i>
         <span>{{networkName}}</span>
@@ -29,6 +35,7 @@
 
 <script>
 import Eth from '@/services/getWeb3';
+import blockjournal from '@/services/blockJournal';
 
 export default {
   name: 'Menu',
@@ -71,6 +78,8 @@ export default {
     sign() {
       this.$parent.$refs.document.sign();
     },
+    dump: blockjournal.dumpState,
+    restore: blockjournal.restoreState,
     shortenedAccount(acc) {
       return `${acc.slice(0, 5)}...${acc.slice(-3)}`;
     }
