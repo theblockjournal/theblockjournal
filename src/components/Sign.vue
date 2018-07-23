@@ -1,7 +1,17 @@
 <template>
   <div id="sign">
     <div id="signView" class="container p-4">
-      <h3><span class="text-muted">Filename:</span> {{sign.fileName}}</h3>
+      <div class="card border-0 my-2" v-on:click="viewSignFile" v-bind:class="{ clickable: file }">
+        <div class="card-body">
+          <div class="d-flex align-middle">
+            <i class="material-icons d-flex pr-2" style="align-items: center">insert_drive_file</i>
+            <div style="font-size: 1.5em">
+              <span class="text-muted">File:</span>
+              <span>{{sign.fileName}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="verification card border-0 my-2">
         <div class="card-body">
           <h5 class="card-title">Verification</h5>
@@ -55,6 +65,9 @@ export default {
     sign() {
       return this.$store.getters.currentSign;
     },
+    file() {
+      return this.$store.getters.getFileByID(this.sign.fileID);
+    },
     verification: () => (sign) => {
       if (!sign.verification) return {
         icon: 'remove_circle_outline',
@@ -72,6 +85,10 @@ export default {
   },
   methods: {
     getTimeString,
+    viewSignFile() {
+      if (!this.file) return;
+      this.$store.commit('selectFileByID', this.file.id);
+    },
   },
 };
 </script>
