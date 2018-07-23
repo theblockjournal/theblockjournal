@@ -83,6 +83,8 @@ export default {
   right: 0;
   bottom: 0;
   top: 4em;
+  overflow-x: auto;
+  overflow-y: auto;
   #signView {
     .verification {
       .icon {

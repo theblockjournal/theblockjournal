@@ -129,6 +129,7 @@ export default {
   position: absolute;
   top: 4em;
   bottom: 0;
+  overflow-y: auto;
   .menu {
     background-color: #dddddd;
     .tab {
