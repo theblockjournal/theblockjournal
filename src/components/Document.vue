@@ -7,6 +7,7 @@
 
 <script>
 import blockJournal from '@/services/blockJournal';
+
 const createKeccakHash = require('keccak');
 
 let store;
@@ -34,9 +35,9 @@ export default {
       this.$store.dispatch('setCurrentFileContent', this.getContent());
     },
     loadFile(file) {
-      let e = window.ace.edit("editor");
-      e.setTheme("ace/theme/clouds_midnight");
-      e.session.setMode("ace/mode/text");
+      const e = window.ace.edit('editor');
+      e.setTheme('ace/theme/clouds_midnight');
+      e.session.setMode('ace/mode/text');
       e.setValue(file.content || '', 1);
       e.setShowInvisibles(true);
       e.getSession().setUndoManager(new window.ace.UndoManager());
@@ -45,9 +46,9 @@ export default {
     },
     async sign() {
       this.save();
-      let file = this.$store.getters.currentFile;
+      const file = this.$store.getters.currentFile;
       await blockJournal.signFile(file);
-      this.$store.commit('setFileLock', {id: file.id, lockState: true});
+      this.$store.commit('setFileLock', { id: file.id, lockState: true });
     },
   },
   mounted() {
@@ -56,11 +57,9 @@ export default {
   },
   watch: {
     file(newFile, oldFile) {
-      if(oldFile && window.editor.getValue) store.commit('setFileContent', {id: oldFile.id, content: window.editor.getValue()});
-      if(!newFile) return;
-      this.$nextTick(()=> {
-        this.loadFile(newFile);
-      });
+      if (oldFile && window.editor.getValue) store.commit('setFileContent', { id: oldFile.id, content: window.editor.getValue() });
+      if (!newFile) return;
+      this.$nextTick(() => this.loadFile(newFile));
     },
   },
 };
@@ -73,7 +72,7 @@ export default {
   right: 0;
   bottom: 0;
   top: 4em;
-  #editor { 
+  #editor {
     height: 100%;
   }
   #tools {

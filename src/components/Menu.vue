@@ -26,7 +26,7 @@
       <div class="d-flex px-2" v-tooltip:bottom="selectedAccountToolTip">
         <i class="material-icons px-2">account_circle</i>
         <select class="addressSelector" v-model="selectedAccount">
-          <option v-for="account in $store.state.app.accounts" :value="account" class="text-dark">{{shortenedAccount(account)}}</option>
+          <option v-for="(account, i) in $store.state.app.accounts" :value="account" class="text-dark">{{shortenedAccount(account)}}</option>
         </select>
       </div>
     </div>
@@ -53,7 +53,7 @@ export default {
     },
     async networkNameToolTip() {
       return `You're on the ${await this.networkName}`;
-    }
+    },
   },
   computed: {
     file() {
@@ -65,11 +65,11 @@ export default {
       },
       set(value) {
         this.$store.commit('selectAccount', this.$store.state.app.accounts.indexOf(value));
-      }
+      },
     },
     selectedAccountToolTip() {
       return `Your Ethereum account: ${this.selectedAccount}`;
-    }
+    },
   },
   methods: {
     save() {
@@ -82,7 +82,7 @@ export default {
     restore: blockjournal.restoreState,
     shortenedAccount(acc) {
       return `${acc.slice(0, 5)}...${acc.slice(-3)}`;
-    }
+    },
   },
 };
 </script>

@@ -8,17 +8,17 @@ import uploadJson from '@/utils/uploadJson';
 
 class BlockJournal {
   constructor() {
-    this.rawContracts = {v0};
+    this.rawContracts = { v0 };
     this.contracts = {};
-    for(let contractName in this.rawContracts) {
-      let rawContract = this.rawContracts[contractName];
+    for (const contractName in this.rawContracts) {
+      const rawContract = this.rawContracts[contractName];
       this.contracts[contractName] = Eth.contract(rawContract.abi);
     }
   }
   async signFile(file) {
-    let signature = `0x${createKeccakHash('keccak256').update(file.content).digest('hex')}`;
-    let txHash = await this.addEntry(signature);
-    let sign = {
+    const signature = `0x${createKeccakHash('keccak256').update(file.content).digest('hex')}`;
+    const txHash = await this.addEntry(signature);
+    const sign = {
       signature,
       txHash,
       time: Date.now(),
@@ -31,47 +31,47 @@ class BlockJournal {
     store.commit('addSign', sign);
   }
   async addEntry(signature) {
-    let contractInstance = await this.getContractInstance('v0');
-    let txHash = await contractInstance.addEntry(signature, {from: store.state.app.selectedAccount});
+    const contractInstance = await this.getContractInstance('v0');
+    const txHash = await contractInstance.addEntry(signature, { from: store.state.app.selectedAccount });
     return txHash;
   }
   async getEntry(address, signature) {
-    if(!address) address = store.state.app.selectedAccount;
-    let contractInstance = await this.getContractInstance('v0');
-    return await contractInstance.getEntry(address, signature);
+    if (!address) address = store.state.app.selectedAccount;
+    const contractInstance = await this.getContractInstance('v0');
+    return contractInstance.getEntry(address, signature);
   }
   async getVerifiedEntry(address, signature) {
-    let entry = await this.getEntry(address, signature);
-    if(entry.sig !== signature) return {verified: false};
+    const entry = await this.getEntry(address, signature);
+    if (entry.sig !== signature) return { verified: false };
     return {
       signature: entry.sig,
       time: (entry.time.toString() * 1000),
       block: entry._block.toNumber(),
-      verified: true
+      verified: true,
     };
   }
   async getContractInstance(name) {
-    let instanceAddress = this.rawContracts[name].deployments[store.state.app.networkID];
+    const instanceAddress = this.rawContracts[name].deployments[store.state.app.networkID];
     return this.contracts[name].at(instanceAddress);
   }
   downloadFile(fileID) {
-    let file = store.getters.getFileByID(fileID);
-    let fileObject = JSON.stringify({file});
+    const file = store.getters.getFileByID(fileID);
+    const fileObject = JSON.stringify({ file });
     downloadJson(fileObject, `blockjournal-file-${file.name}.json`);
   }
   downloadFileWithSigns(fileID) {
-    let file = store.getters.getFileByID(fileID);
-    let signs = store.getters.getSignsByFileID(fileID);
-    let fileSignObject = JSON.stringify({file, signs});
+    const file = store.getters.getFileByID(fileID);
+    const signs = store.getters.getSignsByFileID(fileID);
+    const fileSignObject = JSON.stringify({ file, signs });
     downloadJson(fileSignObject, `blockjournal-file-sigs-${file.name}.json`);
   }
   dumpState() {
-    let stateObject = JSON.stringify(store.state);
-    let filename = `blockjournal-state-${Date.now()}.json`;
+    const stateObject = JSON.stringify(store.state);
+    const filename = `blockjournal-state-${Date.now()}.json`;
     downloadJson(stateObject, filename);
   }
   async restoreState() {
-    let stateObject = await uploadJson();
+    const stateObject = await uploadJson();
     store.replaceState(stateObject);
   }
 }

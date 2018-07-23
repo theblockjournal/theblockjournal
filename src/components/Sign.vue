@@ -44,9 +44,7 @@ import moment from 'moment';
 
 import blockJournal from '@/services/blockJournal';
 
-let getTimeString = (timestamp)=> {
-  return moment(timestamp).toString();
-};
+let getTimeString = timestamp => moment(timestamp).toString();
 
 export default {
   name: 'Sign',
@@ -58,11 +56,11 @@ export default {
       return this.$store.getters.currentSign;
     },
     verification: () => (sign) => {
-      if(!sign.verification) return {
+      if (!sign.verification) return {
         icon: 'remove_circle_outline',
         text: `This signature hasn't been verified yet`,
       };
-      if(sign.verification.verified == false) return {
+      if (sign.verification.verified === false) return {
         icon: 'error_outline',
         text: `This signature failed verification.`,
       };
@@ -74,7 +72,7 @@ export default {
   },
   methods: {
     getTimeString,
-  }
+  },
 };
 </script>
 

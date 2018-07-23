@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="p-2 d-flex" v-if="newMode">
-        <input id="newFileName" type="text" class="w-100 border-0" style="outline:none" v-model="newFileName" v-on:keyup.enter="newFile()" placeholder="Enter filename here"></input>
+        <input id="newFileName" type="text" class="w-100 border-0" style="outline:none" v-model="newFileName" v-on:keyup.enter="newFile()" placeholder="Enter filename here"/>
         <i class="material-icons hoverable" v-on:click="cancelNewMode">close</i>
       </div>
       <div class="hoverable p-2 d-flex justify-content-center" v-on:click="startNewMode" v-if="!newMode">
@@ -71,24 +71,20 @@ export default {
     currentSign() {
       return this.$store.getters.currentSign;
     },
-    displayTime: ()=> (time)=> {
-      return moment(time).from();
-    },
-    isVerified: ()=> (sign)=> {
-      return sign.verification ? sign.verification.verified : false;
-    },
+    displayTime: () => time => moment(time).from(),
+    isVerified: () => sign => sign.verification ? sign.verification.verified : false,
   },
   methods: {
     isFileSelected(file) {
-      if(!this.currentFile) return false;
+      if (!this.currentFile) return false;
       return (this.currentFile.id === file.id);
     },
     isSignSelected(sign) {
-      if(!this.currentSign) return false;
+      if (!this.currentSign) return false;
       return (this.currentSign.id === sign.id);
     },
     newFile() {
-      let file = {
+      const file = {
         name: this.newFileName,
       };
       this.$store.commit('addFile', file);
@@ -111,10 +107,10 @@ export default {
       this.$store.commit('duplicateFileByID', fileID);
     },
     lockFile(fileID) {
-      this.$store.commit('setFileLock', {id: fileID, lockState: true});
+      this.$store.commit('setFileLock', { id: fileID, lockState: true });
     },
     unlockFile(fileID) {
-      this.$store.commit('setFileLock', {id: fileID, lockState: false});
+      this.$store.commit('setFileLock', { id: fileID, lockState: false });
     },
     downloadFile: blockJournal.downloadFile,
     downloadFileWithSigns: blockJournal.downloadFileWithSigns,

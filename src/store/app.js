@@ -9,14 +9,14 @@ export default {
   getters: {
     networkName(state) {
       switch (state.networkID) {
-        case "1":
+        case '1':
           return 'Main Network';
-        case "4":
+        case '4':
           return 'Rinkeby Network';
         default:
           return 'Other Network';
       }
-    }
+    },
   },
   mutations: {
     setNetworkID(state, id) {
@@ -27,21 +27,21 @@ export default {
     },
     selectAccount(state, index) {
       state.selectedAccount = state.accounts[index];
-    }
+    },
   },
   actions: {
-    async setNetworkID({commit}) {
-      let networkID = await Eth.net_version();
+    async setNetworkID({ commit }) {
+      const networkID = await Eth.net_version();
       commit('setNetworkID', networkID);
     },
-    async setAccounts({commit}) {
-      let accounts = await Eth.accounts();
+    async setAccounts({ commit }) {
+      const accounts = await Eth.accounts();
       commit('setAccounts', accounts);
     },
-    async initialize({commit, dispatch}) {
+    async initialize({ commit, dispatch }) {
       await dispatch('setNetworkID');
       await dispatch('setAccounts');
       commit('selectAccount', 0);
-    }
+    },
   },
 };

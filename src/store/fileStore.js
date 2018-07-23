@@ -7,9 +7,7 @@ export default {
     currentFileID: null,
   },
   getters: {
-    getFileByID: (state) => (id) => {
-      return state.files.find(file => file.id === id);
-    },
+    getFileByID: state => id => state.files.find(file => file.id === id),
     currentFile(state) {
       return state.files.find(file => file.id === state.currentFileID);
     },
@@ -39,13 +37,13 @@ export default {
       let deletedFile = state.files.splice(toBeDeletedFileIndex, 1);
       state.deletedFiles.push(...deletedFile);
     },
-    setFileContent(state, {id, content}) {
+    setFileContent(state, { id, content }) {
       let index = state.files.findIndex(f => f.id === id);
       let file = state.files[index];
       if(file.locked) return;
       file.content = content;
     },
-    setFileLock(state, {id, lockState}) {
+    setFileLock(state, { id, lockState }) {
       let index = state.files.findIndex(f => f.id === id);
       state.files[index].locked = lockState;
     },
@@ -54,9 +52,9 @@ export default {
     },
   },
   actions: {
-    setCurrentFileContent({commit, getters}, content) {
-      let id = getters.currentFile.id;
-      commit('setFileContent', {id, content});
-    }
+    setCurrentFileContent({ commit, getters }, content) {
+      const id = getters.currentFile.id;
+      commit('setFileContent', { id, content });
+    },
   },
 };
