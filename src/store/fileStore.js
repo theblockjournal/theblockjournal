@@ -50,6 +50,11 @@ export default {
     selectSignByID(state) {
       state.currentFileID = null;
     },
+    restoreState(state) {
+      state.files = [];
+      state.deletedFiles = [];
+      state.currentFileID = null;
+    },
   },
   actions: {
     setCurrentFileContent({ commit, getters }, content) {

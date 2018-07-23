@@ -9,6 +9,9 @@
       </div>
     </div>
     <div class="d-flex">
+      <div class="d-flex px-2 clickable" v-on:click="reset" v-tooltip:bottom="'Reset app'">
+        <i class="material-icons">settings_backup_restore</i>
+      </div>
       <div class="d-flex px-2 clickable" v-on:click="dump" v-tooltip:bottom="'Download state. This includes files, signatures, and settings.'">
         <i class="material-icons">vertical_align_bottom</i>
       </div>
@@ -78,6 +81,7 @@ export default {
     sign() {
       this.$parent.$refs.document.sign();
     },
+    reset: blockjournal.resetState,
     dump: blockjournal.dumpState,
     restore: blockjournal.restoreState,
     shortenedAccount(acc) {

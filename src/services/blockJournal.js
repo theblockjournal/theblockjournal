@@ -70,6 +70,9 @@ class BlockJournal {
     const filename = `blockjournal-state-${Date.now()}.json`;
     downloadJson(stateObject, filename);
   }
+  resetState() {
+    store.commit('restoreState');
+  }
   async restoreState() {
     const stateObject = await uploadJson();
     store.replaceState(stateObject);

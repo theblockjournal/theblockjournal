@@ -33,6 +33,11 @@ export default {
     selectFileByID(state) {
       state.currentSignID = null;
     },
+    restoreState(state) {
+      state.signs = [];
+      // state.deletedFiles = [];
+      state.currentSignID = null;
+    },
   },
   actions: {
     async verifySignature({ getters, state, commit }, { signID }) {
