@@ -5,7 +5,6 @@ export default {
     networkID: null,
     accounts: [],
     selectedAccount: null,
-    verifyMode: true,
   },
   getters: {
     networkName(state) {
@@ -28,9 +27,6 @@ export default {
     },
     selectAccount(state, index) {
       state.selectedAccount = state.accounts[index];
-    },
-    setVerifyMode(state, verifyMode) {
-      state.verifyMode = verifyMode;
     },
   },
   actions: {
