@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Menu/>
     <div class="container-fluid p-0">
       <div class="row m-0" v-if="!verifyMode">
         <Sidebar class="col-3 p-0"/>
@@ -15,7 +14,6 @@
 </template>
 
 <script>
-import Menu from '@/components/Menu';
 import Sidebar from '@/components/Sidebar';
 import Document from '@/components/Document';
 import Sign from '@/components/Sign';
@@ -30,7 +28,6 @@ console.log(blockJournal);
 export default {
   name: 'Home',
   components: {
-    Menu,
     Sidebar,
     Document,
     Sign,
