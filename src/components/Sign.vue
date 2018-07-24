@@ -16,8 +16,8 @@
         <div class="card-body">
           <h5 class="card-title">Verification</h5>
           <div class="d-flex">
-            <i class="icon material-icons p-2">{{verification(sign).icon}}</i>
-            <div class="content d-flex w-100 p-2">{{verification(sign).text}}</div>
+            <i class="icon material-icons p-2">{{signVerification.icon}}</i>
+            <div class="content d-flex w-100 p-2">{{signVerification.text}}</div>
           </div>
         </div>
       </div>
@@ -68,7 +68,8 @@ export default {
     file() {
       return this.$store.getters.getFileByID(this.sign.fileID);
     },
-    verification: () => (sign) => {
+    signVerification() {
+      let sign = this.sign;
       if (!sign.verification) return {
         icon: 'remove_circle_outline',
         text: `This signature hasn't been verified yet`,
@@ -105,7 +106,7 @@ export default {
   #signView {
     .verification {
       .icon {
-        font-size: 4em;
+        font-size: 3em;
       }
       .content {
         align-items: center;
