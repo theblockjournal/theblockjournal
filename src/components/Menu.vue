@@ -1,11 +1,11 @@
 <template>
   <nav id="menu" class="d-flex navbar text-white">
     <div class="d-flex">
-      <div class="d-flex px-2 clickable" v-on:click="switchMode" v-tooltip:bottom="'Switch mode'">
-        <span class="d-flex" v-if="verifyMode">
+      <div class="d-flex px-2 clickable" v-tooltip:bottom="'Switch mode'">
+        <span class="d-flex" v-if="isVerifyMode" v-on:click="navigateTo('/')">
           <i class="material-icons mx-1">check</i>Verify
         </span>
-        <span class="d-flex" v-else>
+        <span class="d-flex" v-else v-on:click="navigateTo('/verify')">
           <i class="material-icons mx-1">edit</i>Editor
         </span>
       </div>
@@ -81,8 +81,8 @@ export default {
     selectedAccountToolTip() {
       return `Your Ethereum account: ${this.selectedAccount}`;
     },
-    verifyMode() {
-      return this.$store.state.app.verifyMode;
+    isVerifyMode() {
+      return this.$route.name == 'Verify';
     },
   },
   methods: {
@@ -100,6 +100,9 @@ export default {
     restore: blockjournal.restoreState,
     shortenedAccount(acc) {
       return `${acc.slice(0, 5)}...${acc.slice(-3)}`;
+    },
+    navigateTo(path) {
+      this.$router.push({ path });
     },
   },
 };
