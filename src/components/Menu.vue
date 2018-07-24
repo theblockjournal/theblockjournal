@@ -9,6 +9,14 @@
       </div>
     </div>
     <div class="d-flex">
+      <div class="d-flex px-2 clickable" v-on:click="switchMode" v-tooltip:bottom="'Switch mode'">
+        <span class="d-flex" v-if="verifyMode">
+          <i class="material-icons mx-1">check</i>Verify
+        </span>
+        <span class="d-flex" v-else>
+          <i class="material-icons mx-1">edit</i>Editor
+        </span>
+      </div>
       <div class="d-flex px-2 clickable" v-on:click="reset" v-tooltip:bottom="'Reset app'">
         <i class="material-icons">settings_backup_restore</i>
       </div>
@@ -73,6 +81,9 @@ export default {
     selectedAccountToolTip() {
       return `Your Ethereum account: ${this.selectedAccount}`;
     },
+    verifyMode() {
+      return this.$store.state.app.verifyMode;
+    },
   },
   methods: {
     save() {
@@ -80,6 +91,9 @@ export default {
     },
     sign() {
       this.$parent.$refs.document.sign();
+    },
+    switchMode() {
+      this.$store.commit('setVerifyMode', !this.verifyMode);
     },
     reset: blockjournal.resetState,
     dump: blockjournal.dumpState,
