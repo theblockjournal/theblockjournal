@@ -1,14 +1,6 @@
 <template>
   <nav id="menu" class="d-flex navbar text-white">
     <div class="d-flex">
-      <div class="item p-2 clickable" v-on:click="save()" v-if="file" v-tooltip:bottom="'Save file'">
-        <i class="material-icons">save</i>
-      </div>
-      <div class="item p-2 clickable" v-on:click="sign()" v-if="file" v-tooltip:bottom="'Publish signature'">
-        <i class="material-icons">fingerprint</i>
-      </div>
-    </div>
-    <div class="d-flex">
       <div class="d-flex px-2 clickable" v-on:click="switchMode" v-tooltip:bottom="'Switch mode'">
         <span class="d-flex" v-if="verifyMode">
           <i class="material-icons mx-1">check</i>Verify
@@ -17,6 +9,14 @@
           <i class="material-icons mx-1">edit</i>Editor
         </span>
       </div>
+      <div class="d-flex item px-2 clickable" v-on:click="save()" v-if="file" v-tooltip:bottom="'Save file'">
+        <i class="material-icons">save</i>
+      </div>
+      <div class="d-flex item px-2 clickable" v-on:click="sign()" v-if="file" v-tooltip:bottom="'Publish signature'">
+        <i class="material-icons">fingerprint</i>
+      </div>
+    </div>
+    <div class="d-flex">
       <div class="d-flex px-2 clickable" v-on:click="reset" v-tooltip:bottom="'Reset app'">
         <i class="material-icons">settings_backup_restore</i>
       </div>
