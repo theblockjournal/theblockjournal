@@ -54,6 +54,8 @@ export default {
   mounted() {
     this.loadFile(this.file);
     store = this.$store;
+    this.$root.$on('save', () => this.save());
+    this.$root.$on('sign', () => this.sign());
   },
   watch: {
     file(newFile, oldFile) {

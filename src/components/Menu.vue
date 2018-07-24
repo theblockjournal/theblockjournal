@@ -87,10 +87,10 @@ export default {
   },
   methods: {
     save() {
-      this.$parent.$refs.document.save();
+      this.$root.$emit('save');
     },
     sign() {
-      this.$parent.$refs.document.sign();
+      this.$root.$emit('sign');
     },
     switchMode() {
       this.$store.commit('setVerifyMode', !this.verifyMode);
