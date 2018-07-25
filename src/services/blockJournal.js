@@ -57,17 +57,17 @@ class BlockJournal {
   downloadFile(fileID) {
     const file = store.getters.getFileByID(fileID);
     const fileObject = JSON.stringify({ file });
-    downloadJson(fileObject, `blockjournal-file-${file.name}.json`);
+    downloadJson(fileObject, `file-${file.name}.tbj.json`);
   }
   downloadFileWithSigns(fileID) {
     const file = store.getters.getFileByID(fileID);
     const signs = store.getters.getSignsByFileID(fileID);
     const fileSignObject = JSON.stringify({ file, signs });
-    downloadJson(fileSignObject, `blockjournal-file-sigs-${file.name}.json`);
+    downloadJson(fileSignObject, `file-sigs-${file.name}.tbj.json`);
   }
   dumpState() {
     const stateObject = JSON.stringify(store.state);
-    const filename = `blockjournal-state-${Date.now()}.json`;
+    const filename = `state-${Date.now()}.tbj.json`;
     downloadJson(stateObject, filename);
   }
   resetState() {
