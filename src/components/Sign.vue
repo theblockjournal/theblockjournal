@@ -19,6 +19,10 @@
             <i class="icon material-icons p-2">{{signVerification.icon}}</i>
             <div class="content d-flex w-100 p-2">{{signVerification.text}}</div>
           </div>
+          <div class="d-flex" v-if="fileVerification">
+            <i class="icon material-icons p-2">{{fileVerification.icon}}</i>
+            <div class="content d-flex w-100 p-2">{{fileVerification.text}}</div>
+          </div>
         </div>
       </div>
       <div class="card border-0 my-2">
@@ -51,6 +55,7 @@
 
 <script>
 import moment from 'moment';
+const createKeccakHash = require('keccak');
 
 import blockJournal from '@/services/blockJournal';
 
@@ -81,6 +86,23 @@ export default {
       return {
         icon: 'check_circle_outline',
         text: `This signature is valid. It was created on block ${sign.verification.block} at ${getTimeString(sign.verification.time)}`,
+      };
+    },
+    fileVerification() {
+      let [sign, file] = [this.sign, this.file];
+      let fileHash = createKeccakHash('keccak256').update(file.content).digest('hex');
+      if (!sign.verification || !sign.verification.verified) return;
+      if (!file) return {
+        icon: 'help_outline',
+        text: `The file isn't stored with the editor.`,
+      };
+      if (sign.verification.signature !== `0x${fileHash}`) return {
+        icon: 'error_outline',
+        text: `This signature doesn't match with the file stored locally.`,
+      };
+      return {
+        icon: 'check_circle_outline',
+        text: `The signature matches with the file stored locally.`,
       };
     },
   },
