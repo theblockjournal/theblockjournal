@@ -1,4 +1,4 @@
-import createKeccakHash from 'keccak';
+import { keccak256Hex } from '@/utils/hashes';
 
 import Eth from '@/services/getWeb3';
 import store from '@/store';
@@ -16,7 +16,7 @@ class BlockJournal {
     }
   }
   async signFile(file) {
-    const signature = `0x${createKeccakHash('keccak256').update(file.content).digest('hex')}`;
+    const signature = keccak256Hex(file.content);
     const txHash = await this.addEntry(signature);
     const sign = {
       signature,

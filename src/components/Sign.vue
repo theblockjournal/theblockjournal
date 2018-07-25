@@ -55,7 +55,7 @@
 
 <script>
 import moment from 'moment';
-const createKeccakHash = require('keccak');
+import { keccak256Hex } from '@/utils/hashes';
 
 import blockJournal from '@/services/blockJournal';
 
@@ -90,13 +90,13 @@ export default {
     },
     fileVerification() {
       let [sign, file] = [this.sign, this.file];
-      let fileHash = createKeccakHash('keccak256').update(file.content).digest('hex');
+      let fileHash = keccak256Hex(file.content);
       if (!sign.verification || !sign.verification.verified) return;
       if (!file) return {
         icon: 'help_outline',
         text: `The file isn't stored with the editor.`,
       };
-      if (sign.verification.signature !== `0x${fileHash}`) return {
+      if (sign.verification.signature !== fileHash) return {
         icon: 'error_outline',
         text: `This signature doesn't match with the file stored locally.`,
       };

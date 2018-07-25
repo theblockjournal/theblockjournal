@@ -8,7 +8,7 @@
 <script>
 import blockJournal from '@/services/blockJournal';
 
-const createKeccakHash = require('keccak');
+import { keccak256Hex } from '@/utils/hashes';
 
 let store;
 
@@ -29,7 +29,7 @@ export default {
       return this.editor.getValue();
     },
     getContentHash() {
-      return createKeccakHash('keccak256').update(this.getContent()).digest('hex');
+      return keccak256Hex(this.getContent());
     },
     save() {
       this.$store.dispatch('setCurrentFileContent', this.getContent());
