@@ -17,14 +17,22 @@
       </div>
     </div>
     <div class="d-flex">
-      <div class="d-flex px-2 clickable" v-on:click="reset" v-tooltip:bottom="'Reset app'">
-        <i class="material-icons">settings_backup_restore</i>
-      </div>
-      <div class="d-flex px-2 clickable" v-on:click="dump" v-tooltip:bottom="'Download state. This includes files, signatures, and settings.'">
-        <i class="material-icons">vertical_align_bottom</i>
-      </div>
-      <div class="d-flex px-2 clickable" v-on:click="restore" v-tooltip:bottom="'Upload state.'">
-        <i class="material-icons">vertical_align_top</i>
+      <div class="config d-flex px-2 clickable nav-item dropdown">
+        <i class="material-icons" data-toggle="dropdown">settings</i>
+        <div class="dropdown-menu">
+          <a class="dropdown-item d-flex" v-on:click="reset">
+            <i class="material-icons">settings_backup_restore</i>
+            <span>Reset app</span>
+          </a>
+          <a class="dropdown-item d-flex" v-on:click="dump" v-tooltip:right="'This includes files, signatures, and settings'">
+            <i class="material-icons">vertical_align_bottom</i>
+            <span>Download state</span>
+          </a>
+          <a class="dropdown-item d-flex" v-on:click="restore">
+            <i class="material-icons">vertical_align_top</i>
+            <span>Upload state</span>
+          </a>
+        </div>
       </div>
       <div class="d-flex px-2">
         <i class="material-icons px-2" v-tooltip:bottom="networkNameToolTip">public</i>
@@ -120,6 +128,17 @@ export default {
     background: none;
     border: none;
     color: white;
+  }
+  .config {
+    .dropdown-menu {
+      background-color: black;
+      color: white;
+      .dropdown-item {
+        &:hover {
+          background-color: #111111;
+        }
+      }
+    }
   }
 }
 </style>
