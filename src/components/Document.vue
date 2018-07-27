@@ -39,7 +39,8 @@ export default {
       e.setTheme('ace/theme/clouds_midnight');
       e.session.setMode('ace/mode/text');
       e.setValue(file.content || '', 1);
-      e.setShowInvisibles(true);
+      // e.setShowInvisibles(true);
+      e.setOption("wrap", true);
       e.getSession().setUndoManager(new window.ace.UndoManager());
       window.editor = e;
       this.editor = e;
