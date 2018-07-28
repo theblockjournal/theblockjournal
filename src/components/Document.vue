@@ -35,6 +35,7 @@ export default {
       this.$store.dispatch('setCurrentFileContent', this.getContent());
     },
     loadFile(file) {
+      if(!file) return;
       const e = window.ace.edit('editor');
       e.setTheme('ace/theme/clouds_midnight');
       e.session.setMode('ace/mode/text');
