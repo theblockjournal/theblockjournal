@@ -56,7 +56,6 @@
 </template>
 
 <script>
-import Eth from '@/services/getWeb3';
 import blockjournal from '@/services/blockJournal';
 
 export default {

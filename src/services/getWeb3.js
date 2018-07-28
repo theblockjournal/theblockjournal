@@ -1,4 +1,8 @@
 import Web3 from 'web3';
 import Eth from 'ethjs';
 
-export default new Eth(window.web3.currentProvider);
+const eth = new Eth(window.web3.currentProvider);
+
+window.Eth = eth;
+
+export default eth;
