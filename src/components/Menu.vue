@@ -48,6 +48,9 @@
           <option v-for="(account, i) in $store.state.app.accounts" :value="account" class="text-dark">{{shortenedAccount(account)}}</option>
         </select>
       </div>
+      <div class="d-flex px-2 clickable" @click="showInfoModal">
+        <i class="material-icons">info</i>
+      </div>
     </div>
   </nav>
 </template>
@@ -108,6 +111,9 @@ export default {
     restore: blockjournal.restoreState,
     shortenedAccount(acc) {
       return `${acc.slice(0, 5)}...${acc.slice(-3)}`;
+    },
+    showInfoModal() {
+      this.$root.$emit('showInfoModal');
     },
     navigateTo(path) {
       this.$router.push({ path });
