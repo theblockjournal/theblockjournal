@@ -1,30 +1,21 @@
-# theblockjournal
+# [theblockjournal](https://theblockjournal.itsarnavb.me)
 
-> A Vue.js project
+Theblockjournal is an open-source tool that makes it easy to publish signatures of text, creating a proof of existence, integrity, and ownership. It's inspired from the concept of an [Inventor's notebook](https://en.wikipedia.org/wiki/Inventor%27s_notebook).
 
-## Build Setup
+It's an attempt to combine the function of a blockchain notary with that of a note-taking app like Evernote or OneNote. 
 
-``` bash
-# install dependencies
-npm install
+## The contracts
 
-# serve with hot reload at localhost:8080
-npm run dev
+Theblockjournal is written to allow the use of multiple contracts, deployed across the mainnet and testnets. The design goals of existing and future contracts include:
 
-# build for production with minification
-npm run build
+* Create a proof of existence, integrity, and ownership
+* Minimize transaction costs of signature creation
+* Seek no 'rent' for signature creation (theblockjournal acts as a utility)
 
-# build for production and view the bundle analyzer report
-npm run build --report
+## Current deployment
 
-# run unit tests
-npm run unit
+This project is just an early prototype. The contract is deployed on the Rinkeby testnet at [0x32e30615fdf4631259644af2305e2317f5b28a0e](https://rinkeby.etherscan.io/address/0x32e30615fdf4631259644af2305e2317f5b28a0e). The contract is extremely simple, and I'm sure there are flaws currently invisible to me. 
 
-# run e2e tests
-npm run e2e
+The web app is available on a testing subdomain: https://theblockjournal.itsarnavb.me. It's written in VueJS, and makes use of Ethjs to interface with Metamask and the Ethereum blockchain.
 
-# run all tests
-npm test
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+Thanks for checking theblockjournal out.
