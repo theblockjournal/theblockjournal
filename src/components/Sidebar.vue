@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="p-2 d-flex" v-if="newMode">
-        <input id="newFileName" type="text" class="w-100 border-0" style="outline:none" v-model="newFileName" v-on:keyup.enter="newFile()" placeholder="Enter filename here"/>
+        <input id="newFileName" type="text" class="w-100 border-0" style="outline:none" v-model="newFileName" v-on:keyup.enter="newFile()" placeholder="Enter filename here" ref="newFileName" autofocus/>
         <i class="material-icons hoverable" v-on:click="cancelNewMode">close</i>
       </div>
       <div class="hoverable p-2 d-flex justify-content-center" v-on:click="startNewMode" v-if="!newMode">
@@ -96,6 +96,9 @@ export default {
     },
     startNewMode() {
       this.newMode = true;
+      this.$nextTick(function() {
+        this.$refs.newFileName.focus();
+      });
     },
     selectFile(fileID) {
       this.$store.commit('selectFileByID', fileID);
