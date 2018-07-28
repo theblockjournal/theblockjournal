@@ -1,6 +1,6 @@
 import { keccak256Hex } from '@/utils/hashes';
 
-import Eth from '@/services/getWeb3';
+import Eth from '@/services/getEthjs';
 import store from '@/store';
 import v0 from '@/contracts/v0';
 import downloadJson from '@/utils/downloadJson';

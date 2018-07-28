@@ -1,4 +1,4 @@
-import Eth from '@/services/getWeb3';
+import Eth from '@/services/getEthjs';
 
 export default {
   state: {
