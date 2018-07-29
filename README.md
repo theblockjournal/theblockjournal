@@ -4,6 +4,8 @@ Theblockjournal is an open-source tool that makes it easy to publish signatures 
 
 It's an attempt to combine the function of a blockchain notary with that of a note-taking app like Evernote or OneNote. 
 
+[Instructions for use](https://imgur.com/a/l6X5GSs)
+
 ## The contracts
 
 Theblockjournal is written to allow the use of multiple contracts, deployed across the mainnet and testnets. The design goals of existing and future contracts include:
