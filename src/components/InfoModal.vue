@@ -14,7 +14,7 @@
           </p>
         </div>
         <div class="modal-footer border-0 pt-0">
-          <a href="https://github.com/theblockjournal" target="_blank"><img class="link-logo clickable" src="static/gh.svg"></a>
+          <a href="https://github.com/theblockjournal/theblockjournal" target="_blank"><img class="link-logo clickable" src="static/gh.svg"></a>
           <a href="https://twitter.com/itsarnavb" target="_blank"><img class="link-logo clickable" src="static/tw.svg"></a>
         </div>
       </div>
