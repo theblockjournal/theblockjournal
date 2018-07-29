@@ -10,7 +10,7 @@
             It's an attempt to combine the function of a blockchain notary with that of a note-taking app like Evernote or OneNote. 
           </p>
           <p>
-            This project is <a href="https://github.com/theblockjournal/theblockjournal/blob/master/LICENSE" target="_blank">MIT licensed</a>
+            This project is <a href="https://github.com/theblockjournal/theblockjournal/blob/master/LICENSE" target="_blank">MIT licensed</a>. Instructions for use can be found <a href="https://imgur.com/a/l6X5GSs" target="_blank">here</a>.
           </p>
         </div>
         <div class="modal-footer border-0 pt-0">
