@@ -16,6 +16,7 @@
         <div class="modal-footer border-0 pt-0">
           <a href="https://github.com/theblockjournal/theblockjournal" target="_blank"><img class="link-logo clickable" src="static/gh.svg"></a>
           <a href="https://twitter.com/itsarnavb" target="_blank"><img class="link-logo clickable" src="static/tw.svg"></a>
+          <a href="https://www.stateofthedapps.com/dapps/theblockjournal" target="_blank"><img class="clickable" style="height: 2em" src="https://d235xj300x7t48.cloudfront.net/img/logo-reverse.3d8cbed.png"></a>
         </div>
       </div>
     </div>
